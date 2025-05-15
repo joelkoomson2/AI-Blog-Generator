@@ -1,6 +1,6 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Blog Generator</title>
@@ -8,79 +8,66 @@
 
     <style>
        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to { 
-                transform: rotate(360deg);
-            }
-        }
-         
-        
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-     @-webkit-keyframes rotate {
-            from {
-                -webkit-transform: rotate(0deg);
-            }
-            to { 
-                -webkit-transform: rotate(360deg);
-            }
-        }
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
 
-    .load{
-        width: 100px;
-            height: 100px;
-            margin: 110px auto 0;
-            border:solid 10px #8822aa;
-            border-radius: 50%;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-             -webkit-transition: all 0.5s ease-in;
-            -webkit-animation-name:             rotate; 
-            -webkit-animation-duration:         1.0s; 
-            -webkit-animation-iteration-count:  infinite;
-            -webkit-animation-timing-function: linear;
+.load {
+  width: 100px;
+  height: 100px;
+  margin: 110px auto 0;
+  border: 10px solid #8822aa;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
 
-            
-             transition: all 0.5s ease-in;
-            animation-name:             rotate; 
-            animation-duration:         1.0s; 
-            animation-iteration-count:  infinite;
-            animation-timing-function: linear; 
-     }
-    
+  /* Modern animation properties */
+  animation: rotate 1s linear infinite;
+  -webkit-animation: rotate 1s linear infinite;
+}
+
     </style>
- </head>
- <body class="flex flex-col min-h-screen bg-gray-100 font-sans antialiased">
-     <!-- Navbar -->
+</head>
+<body class="flex flex-col min-h-scrren bg-gray-100 font-sans antialised">
+    <!-- Navbar -->
     <nav class="bg-blue-600 p-4 text-white flex justify-between">
         <div>
             <h1 class="text-3xl font-bold">AI Blog Generator</h1>
         </div>
         <div>
-           <a href="#" class="text-white hover:underline">Welcome {{ user.username|default:"Guest" }}</a>
-            <a href="/logout" class="text-white hover:underline">Logout</a>
-
+            <a href="#" class="text-white hover:underline mx-4">Welcome {{ user.username }}</a>
+            <a href="/blog-list" class="text-white hover:underline mx-4">Saved Blog Posts</a>
+            <a href="#" class="text-white hover:underline">Logout</a>
         </div>
-
-    
-
     </nav>
 
+
     <br>
-    </br>
+    <br>
+
     <!-- Main -->
-     <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
+    <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
         <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex flex-col">
 
-            <!-- introduction section    -->
+            <!-- Introduction section -->
             <div class="text-center">
                 <h2 class="text-2xl font-semibold mb-4">Welcome to the AI Blog Generator</h2>
                 <p class="text-gray-700">
-                    Generate high-quality blog articles from
-                    Youtube videos using artifical intelligence.
-                    Simply enter the link to the YouTube video below
-                    and let the AI create the content for you!
+                    Generate high-quality blog articles from YouTube videos using artificial intelligence.
+                    Simply enter the link to the YouTube video below and let the AI create the content for you!
                 </p>
             </div>
 
@@ -88,35 +75,34 @@
 
             <!-- Youtube section -->
             <div>
-                <h2 class="text-xl mb-4 font-semibold">Enter YouTube Video Link</h2>
-                <div class = "flex space-x-4">
-                    <input id ="youtubeLink" type="url" placeholder="Paste Youtube Link..." class="flex-grow p-2 border border-blue-400 rounded-l-md">
+                <h2 class="text-xl mb-4 font-semibold">Enter Youtube Video Link</h2>
+                <div class="flex space-x-4">
+                    <input id="youtubeLink" type="url" placeholder="Paste Youtube Link..." class="flex-grow p-2 border border-blue-400 rounded-l-md">
                     <button id="generateBlogButton" class="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
                 </div>
             </div>
 
+
             <!-- section for loading circle -->
-             <div style="display:none" id= "loading-circle" class="load"></div>
-
-            
-
+            <div style="display: none;" id="loading-circle" class="load"></div>
 
 
             <!-- Generated Blog Display Section -->
-            <section class = "mt-10 flex-grow">
+            <section class="mt-10 flex-grow">
                 <h2 class="text-xl mb-4 font-semibold">Generated Blog Article</h2>
-                <div id="blogContent" class="mt-2 text-gray-y-4700 space-y-4">
+                <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
                     
                 </div>
             </section>
         </div>
-     </div>
+    </div>
 
-     <footer class="text-center p-4 text-black mt-6">
-        Powered by <a href="https://github.com/joelkoomson2">Joel Koomson</a>
-     </footer>
 
-   <script>
+    <footer class="text-center p-4 text-blacl mt-6">
+        Powered by <a href="">Joel Koomson</a>
+    </footer>
+
+    <script>
         document.getElementById('generateBlogButton').addEventListener('click', async () => {
             
 
@@ -141,7 +127,13 @@
 
                     const data = await response.json();
 
-                    blogContent.innerHTML = data.content;
+                    if (data.error) {
+                        blogContent.innerHTML = `<div class="text-red-600 font-semibold">${data.error}</div>`;
+                    } else if (data.content) {
+                        blogContent.innerHTML = data.content;
+                    } else {
+                        blogContent.innerHTML = '<div class="text-red-600 font-semibold">Unknown error occurred.</div>';
+                    }
 
                 } catch (error) {
                     console.error("Error occurred:", error);
@@ -154,3 +146,5 @@
             }
         });
     </script>
+</body>
+</html>
