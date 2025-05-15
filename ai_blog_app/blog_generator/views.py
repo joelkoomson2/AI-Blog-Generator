@@ -95,7 +95,11 @@ def get_transcription(link):
     if not audio_file:
         print("Failed to download audio for transcription.")
         return None
+<<<<<<< HEAD
     aai.settings.api_key = creds.aai_api_key  # Set your AssemblyAI API key here
+=======
+    aai.settings.api_key = "USE YOUR API"
+>>>>>>> 3426567647a056721804a6198faae2a5cb6e0898
     try:
         transcriber = aai.Transcriber()
         transcript = transcriber.transcribe(audio_file)
@@ -105,8 +109,13 @@ def get_transcription(link):
         return None
 
 def generate_blog_from_transcription(transcription):
+<<<<<<< HEAD
     # For google-generativeai >=0.3.0, use genai.configure with api_key keyword
     genai.configure(api_key=credz.genai_api_key)
+=======
+    # For google-generativeai >=0.3.0, use genai.configure not genai.api_key
+    genai.configure(api_key="")
+>>>>>>> 3426567647a056721804a6198faae2a5cb6e0898
 
     prompt = f"Based on the following transcript from a YouTube video, write a comprehensive blog article, write it based on the transcript, but dont make it look like a youtube video, make it look like a proper blog article:\n\n{transcription}\n\nArticle:"
 
