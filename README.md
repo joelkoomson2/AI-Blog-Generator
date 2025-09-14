@@ -17,7 +17,7 @@ The AI Blog Article Generator is designed to generate articles automatically usi
 
 - **Python**: The main programming language used.
 - **Django**: The web framework used to build the application.
-- **Goole Gemini-2.0-flash** (or equivalent language model): The AI model used for content generation.
+- **Google Gemini-2.0-flash** (or equivalent language model): The AI model used for content generation.
 - **HTML/CSS/JavaScript**: Front-end technologies for user interaction.
 
 ## Getting Started
